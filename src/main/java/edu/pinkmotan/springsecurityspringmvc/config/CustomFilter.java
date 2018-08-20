@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.pinkmotan.springsecurityspringmvc.config;
 
 import java.io.IOException;
@@ -24,7 +20,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 /**
  *
- * @author agore
+ * @author GoreA
  */
 public class CustomFilter extends GenericFilterBean {
 
@@ -88,15 +84,8 @@ public class CustomFilter extends GenericFilterBean {
    * otherwise.
    */
   private boolean isAccessAllowed(String clientIP, ServletRequest request) {
-//    Method method = ((HttpServletRequest)request).get();
-//
-//    if (method.isAnnotationPresent(ACFIgnored.class) || method.getDeclaringClass().isAnnotationPresent(ACFIgnored.class)) {
-//      return true;
-//    } else {
       List<String> acl = getACL();
       return acl.stream().anyMatch(aclEntry -> matches(clientIP, aclEntry));
-//    }
-//    return true;
   }
 
   /**

@@ -1,21 +1,7 @@
-/*
- * Copyright 2002-2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package edu.pinkmotan.springsecurityspringmvc.config;
 
-import edu.pinkmotan.springsecurityspringmvc.errorhandlers.CustomAccessDeniedHandler;
+import edu.pinkmotan.springsecurityspringmvc.errorhandlers.ControlListAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,7 +13,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 /**
- * @author Joe Grandja
+ * @author GoreA
  */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -37,11 +23,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http
             .authorizeRequests()
             .antMatchers("/css/**", "/index").permitAll()
-            //            .antMatchers("/user/**").hasRole("USER")
             .and()
-            .formLogin().loginPage("/login").failureUrl("/login-error")
+            .formLogin().loginPage("/login").failureUrl("/login-error") // in this project login page was ommited
             .and()
-            .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+            .exceptionHandling().accessDeniedHandler(controlListAccessDeniedHandler())
             .and()
             .addFilterAfter(new CustomFilter(), BasicAuthenticationFilter.class);
   }
@@ -54,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   @Bean
-  public AccessDeniedHandler accessDeniedHandler() {
-    return new CustomAccessDeniedHandler();
+  public AccessDeniedHandler controlListAccessDeniedHandler() {
+    return new ControlListAccessDeniedHandler();
   }
 }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package edu.pinkmotan.springsecurityspringmvc.errorhandlers;
 
 import java.io.IOException;
@@ -18,11 +14,11 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 
 /**
  *
- * @author agore
+ * @author GoreA
  */
-public class CustomAccessDeniedHandler implements AccessDeniedHandler {
+public class UserAccessDeniedHandler implements AccessDeniedHandler {
  
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserAccessDeniedHandler.class);
  
     @Override
     public void handle(
