@@ -1,4 +1,3 @@
-
 package edu.pinkmotan.springsecurityspringmvc.config;
 
 import edu.pinkmotan.springsecurityspringmvc.errorhandlers.ControlListAccessDeniedHandler;
@@ -18,28 +17,14 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+  @Autowired
+  private ControlListAccessDeniedHandler controlListAccessDeniedHandler;
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
-            .authorizeRequests()
-            .antMatchers("/css/**", "/index").permitAll()
-            .and()
-            .formLogin().loginPage("/login").failureUrl("/login-error") // in this project login page was ommited
-            .and()
-            .exceptionHandling().accessDeniedHandler(controlListAccessDeniedHandler())
+            .exceptionHandling().accessDeniedHandler(controlListAccessDeniedHandler)
             .and()
             .addFilterAfter(new CustomFilter(), BasicAuthenticationFilter.class);
-  }
-
-  @Autowired
-  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    auth
-            .inMemoryAuthentication()
-            .withUser(User.withDefaultPasswordEncoder().username("user").password("password").roles("USER"));
-  }
-
-  @Bean
-  public AccessDeniedHandler controlListAccessDeniedHandler() {
-    return new ControlListAccessDeniedHandler();
   }
 }

@@ -1,6 +1,7 @@
 
 package edu.pinkmotan.springsecurityspringmvc.config;
 
+import edu.pinkmotan.springsecurityspringmvc.errorhandlers.exception.ContrloListAccessDeniedException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +15,6 @@ import javax.servlet.ServletResponse;
 //import org.apache.coyote.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.util.matcher.IpAddressMatcher;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -97,7 +97,7 @@ public class CustomFilter extends GenericFilterBean {
    */
   private void forbidAccess(ServletRequest request, String message) {
     LOGGER.warn(message);
-    throw new AccessDeniedException(message);
+    throw new ContrloListAccessDeniedException(message);
   }
 
   /**
